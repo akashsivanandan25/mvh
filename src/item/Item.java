@@ -15,6 +15,9 @@ public abstract class Item {
         this.currentUses = 0;
     }
 
+    public String getName(){
+        return this.name;
+    }
     public void use(){
         this.currentUses++;
     }
