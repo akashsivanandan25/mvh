@@ -41,4 +41,9 @@ public abstract class Item {
     public int getLevelRequired(){
         return this.levelRequired;
     }
+
+
+    public int getMaxUses(){
+        return this.maxUses;
+    }
 }

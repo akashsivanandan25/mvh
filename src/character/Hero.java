@@ -150,4 +150,22 @@ public abstract class Hero extends Character{
         return item.getBuyingPrice() <= this.gold;
     }
     public abstract List<StatType> getFavouredStats();
+
+
+    public int getGold(){
+        return this.gold;
+    }
+
+    public void setGold(int gold){
+        this.gold = gold;
+    }
+
+    public void removeItem(Item item){
+        this.inventory.remove(item);
+    }
+
+    public void addItem(Item item){
+        this.inventory.add(item);
+    }
+
 }
