@@ -1,7 +1,7 @@
 package character;
 
 public class Exoskeleton extends Monster{
-    protected Exoskeleton(String name, int level, int maxHP, int baseDamage, int defence) {
+    public Exoskeleton(String name, int level, int maxHP, int baseDamage, int defence) {
         super(name, level, maxHP, baseDamage, defence);
     }
 

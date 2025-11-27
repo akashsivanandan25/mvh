@@ -12,6 +12,10 @@ public class Spell extends Item {
         this.baseDamage = baseDamage;
     }
 
+    public SpellType getSpellType() {
+        return spellType;
+    }
+
 
     // TODO: make a spellcast function: needs to be passed a source and a target
 }

@@ -30,7 +30,7 @@ public class World {
         int k = 0;
         for (int r = 0; r < Gameconstants.WORLD_HEIGHT; r ++){
             for (int c = 0; c < Gameconstants.WORLD_WIDTH; c ++){
-                tiles[r][c] = pool.get(k++);
+                this.tiles[r][c] = pool.get(k++);
             }
         }
     }
@@ -38,7 +38,7 @@ public class World {
     private void placePartyStarting(){
         for (int r = 0; r < Gameconstants.WORLD_HEIGHT; r ++){
             for (int c = 0; c < Gameconstants.WORLD_WIDTH; c ++){
-                if (tiles[r][c].isAccessible()){
+                if (this.tiles[r][c].isAccessible()){
                     this.partyPosition = new Position(r, c);
                     return;
                 }
@@ -48,5 +48,9 @@ public class World {
 
     public Tile tileAtPos(Position pos){
         return tiles[pos.getX()][pos.getY()];
+    }
+
+    public Tile[][] getTiles(){
+        return this.tiles;
     }
 }

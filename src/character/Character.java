@@ -37,4 +37,16 @@ public abstract class Character {
     public int getLevel(){
         return this.level;
     }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getHealth(){
+        return this.health;
+    }
+
+    public int getMaxHP(){
+        return this.maxHP;
+    }
 }

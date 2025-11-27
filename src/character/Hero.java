@@ -168,4 +168,12 @@ public abstract class Hero extends Character{
         this.inventory.add(item);
     }
 
+    public int getMaxMP(){
+        return this.maxMP;
+    }
+
+    public int getMP(){
+        return this.mp;
+    }
+
 }

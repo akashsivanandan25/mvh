@@ -1,7 +1,7 @@
 package character;
 
 public class Dragon extends Monster {
-    protected Dragon(String name, int level, int maxHP, int baseDamage, int defence) {
+    public Dragon(String name, int level, int maxHP, int baseDamage, int defence) {
         super(name, level, maxHP, baseDamage, defence);
     }
 

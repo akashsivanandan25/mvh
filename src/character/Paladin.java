@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Paladin extends Hero {
     private final List<StatType> favouredStats;
-    protected Paladin(String name, int level, int maxHP, int maxMp, int strength, int dex, int agility) {
+    public Paladin(String name, int level, int maxHP, int maxMp, int strength, int dex, int agility) {
         super(name, level, maxHP, maxMp, strength, dex, agility);
         this.favouredStats = new ArrayList<>();
         favouredStats.add(StatType.STRENGTH);

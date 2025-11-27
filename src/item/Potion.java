@@ -36,4 +36,8 @@ public class Potion extends Item{
         }
         super.use();
     }
+
+    public StatType getAffectedStat() {
+        return affectedStat;
+    }
 }

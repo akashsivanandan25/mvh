@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Sorcerer extends Hero{
     private final List<StatType> favouredStats;
-    protected Sorcerer(String name, int level, int maxHP, int maxMp, int strength, int dex, int agility) {
+    public Sorcerer(String name, int level, int maxHP, int maxMp, int strength, int dex, int agility) {
         super(name, level, maxHP, maxMp, strength, dex, agility);
         this.favouredStats = new ArrayList<>();
         this.favouredStats.add(StatType.DEX);
