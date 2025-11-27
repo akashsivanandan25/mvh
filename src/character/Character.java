@@ -33,4 +33,8 @@ public abstract class Character {
     }
 
     public abstract float dodgeChance();
+
+    public int getLevel(){
+        return this.level;
+    }
 }
