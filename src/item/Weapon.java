@@ -23,12 +23,13 @@ public class Weapon extends Item implements Equipment {
     }
 
     @Override
-    public boolean equip(Item item) {
-        return false;
+    public int getHandsRequired() {
+        return this.handsRequired;
     }
 
     @Override
-    public boolean unEquip(Item item) {
-        return false;
+    public int getRequiredLevel() {
+        return super.getLevelRequired();
     }
+
 }

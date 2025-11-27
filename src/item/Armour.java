@@ -12,12 +12,12 @@ public class Armour extends Item implements Equipment {
     }
 
     @Override
-    public boolean equip(Item item) {
-        return false;
+    public int getHandsRequired() {
+        return 0;
     }
 
     @Override
-    public boolean unEquip(Item item) {
-        return false;
+    public int getRequiredLevel() {
+        return super.getLevelRequired();
     }
 }
