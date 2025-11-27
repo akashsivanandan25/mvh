@@ -19,6 +19,9 @@ public abstract class Character {
     public void takeDamage(int damage)
     {
         this.health -= damage;
+        if (health <= 0){
+            this.isFainted = true;
+        }
     }
 
     public void heal(int amount){
