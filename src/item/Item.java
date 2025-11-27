@@ -33,4 +33,12 @@ public abstract class Item {
     public int getSellingPrice(){
         return this.price / 2;
     }
+
+    public int getBuyingPrice(){
+        return this.price;
+    }
+
+    public int getLevelRequired(){
+        return this.levelRequired;
+    }
 }
