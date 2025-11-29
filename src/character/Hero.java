@@ -180,4 +180,8 @@ public abstract class Hero extends Character{
         return this.inventory;
     }
 
+    public void recoverMP(int amount){
+        this.mp += utils.MathUtil.percentage(this.mp, amount);
+    }
+
 }
