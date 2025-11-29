@@ -9,7 +9,7 @@ public class Sorcerer extends Hero{
     public Sorcerer(String name, int level, int maxHP, int maxMp, int strength, int dex, int agility) {
         super(name, level, maxHP, maxMp, strength, dex, agility);
         this.favouredStats = new ArrayList<>();
-        this.favouredStats.add(StatType.DEX);
+        this.favouredStats.add(StatType.DEXTERITY);
         this.favouredStats.add(StatType.AGILITY);
     }
 

@@ -1,9 +1,9 @@
 package character;
 
 public enum StatType {
-    HP,
-    MP,
+    HEALTH,
+    MANA,
     STRENGTH,
-    DEX,
+    DEXTERITY,
     AGILITY,
 }

@@ -10,7 +10,7 @@ public class Paladin extends Hero {
         super(name, level, maxHP, maxMp, strength, dex, agility);
         this.favouredStats = new ArrayList<>();
         favouredStats.add(StatType.STRENGTH);
-        favouredStats.add(StatType.DEX);
+        favouredStats.add(StatType.DEXTERITY);
     }
 
     @Override
