@@ -1,5 +1,11 @@
 package world;
 
+import core.GameContext;
+import factory.ConfigLoader;
+import item.Armour;
+import item.Potion;
+import item.Spell;
+import item.Weapon;
 import utils.Gameconstants;
 
 import java.util.ArrayList;
@@ -7,9 +13,10 @@ import java.util.List;
 
 public class World {
     private Tile[][] tiles;
-    public Position partyPosition;
+    private Position partyPosition;
 
     public World(){
+        this.tiles = new Tile[Gameconstants.WORLD_HEIGHT][Gameconstants.WORLD_WIDTH];
         generateTiles();
         placePartyStarting();
     }
@@ -27,12 +34,38 @@ public class World {
 
         java.util.Collections.shuffle(pool);
 
+        ConfigLoader loader = new ConfigLoader();
+
+        List<Weapon>  weapons = loader.loadWeapons();
+        List<Armour>  armour  = loader.loadArmour();
+        List<Potion>  potions = loader.loadPotions();
+        List<Spell>   spells  = loader.loadSpells();
+
+
         int k = 0;
-        for (int r = 0; r < Gameconstants.WORLD_HEIGHT; r ++){
-            for (int c = 0; c < Gameconstants.WORLD_WIDTH; c ++){
-                this.tiles[r][c] = pool.get(k++);
+        for (int r = 0; r < Gameconstants.WORLD_HEIGHT; r++) {
+            for (int c = 0; c < Gameconstants.WORLD_WIDTH; c++) {
+
+                Tile t = pool.get(k++);      // only once
+
+                if (t instanceof MarketTile) {
+                    MarketTile m = (MarketTile) t;
+                    java.util.Random rand = new java.util.Random();
+
+                    for (int i = 0; i < 3; i++)
+                        m.getMarket().addItem(weapons.get(rand.nextInt(weapons.size())));
+                    for (int i = 0; i < 2; i++)
+                        m.getMarket().addItem(armour.get(rand.nextInt(armour.size())));
+                    for (int i = 0; i < 3; i++)
+                        m.getMarket().addItem(potions.get(rand.nextInt(potions.size())));
+                    for (int i = 0; i < 2; i++)
+                        m.getMarket().addItem(spells.get(rand.nextInt(spells.size())));
+                }
+
+                tiles[r][c] = t;
             }
         }
+
     }
 
     private void placePartyStarting(){
@@ -52,5 +85,13 @@ public class World {
 
     public Tile[][] getTiles(){
         return this.tiles;
+    }
+
+    public Position getPartyPosition(){
+        return this.partyPosition;
+    }
+
+    public void setPartyPosition(Position pos){
+        this.partyPosition = pos;
     }
 }
