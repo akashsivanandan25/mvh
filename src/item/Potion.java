@@ -3,41 +3,32 @@ package item;
 import character.Hero;
 import character.StatType;
 
-public class Potion extends Item{
-    private final StatType affectedStat;
-    private final int effectAmount;
+import java.util.List;
 
-    public Potion(String name, int price, int levelRequired, int maxUses, StatType affectedStat, int effectAmount) {
-        super(name, price, levelRequired, maxUses);
-        this.affectedStat = affectedStat;
-        this.effectAmount = effectAmount;
+public class Potion extends Item{
+    private final int effectAmount;
+    private final List<StatType> statsAffected;
+
+    public Potion(String name, int price, int level, int amount, List<StatType> stats){
+        super(name,price,level,1);
+        this.statsAffected = stats;
+        this.effectAmount = amount;
     }
 
-
-    public void apply(Hero character){
-        switch (affectedStat){
-            case AGILITY:
-                character.buffAgility(effectAmount);
-                break;
-            case DEX:
-                character.buffDex(effectAmount);
-                break;
-            case STRENGTH:
-                character.buffStrength(effectAmount);
-                break;
-            case HP:
-                character.heal(effectAmount);
-                break;
-            case MP:
-                character.buffMP(effectAmount);
-                break;
-            default:
-                break;
+    public void apply(Hero hero){
+        for(StatType stat : statsAffected){
+            switch(stat){
+                case HEALTH:    hero.heal(effectAmount); break;
+                case MANA:      hero.buffMP(effectAmount); break;
+                case STRENGTH:  hero.buffStrength(effectAmount); break;
+                case AGILITY:   hero.buffAgility(effectAmount); break;
+                case DEXTERITY: hero.buffDex(effectAmount); break;
+            }
         }
         super.use();
     }
 
-    public StatType getAffectedStat() {
-        return affectedStat;
+    public List<StatType> getAffectedStats() {
+        return this.statsAffected;
     }
 }
