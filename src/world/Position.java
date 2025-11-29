@@ -19,26 +19,25 @@ public class Position {
         return y;
     }
 
-    public static boolean isValidPos(Position newPosition){
-        return  newPosition.getX() < Gameconstants.WORLD_WIDTH && newPosition.getY() < Gameconstants.WORLD_HEIGHT &&
-                newPosition.getX() >= 0 && newPosition.getY() >= 0;
+    public static boolean isValidPos(Position p){
+        return  p.x >= 0 && p.x < Gameconstants.WORLD_HEIGHT &&
+                p.y >= 0 && p.y < Gameconstants.WORLD_WIDTH;
     }
 
     public Position move(Direction direction) {
         switch (direction) {
             case UP:
-                 return new Position(x, y + 1);
+                return new Position(x - 1, y);
             case DOWN:
-                return new Position(x, y - 1);
+                return new Position(x + 1, y);
             case LEFT:
-                return  new Position(x-1, y);
+                return new Position(x, y - 1);
             case RIGHT:
-                return new Position(x+1, y);
+                return new Position(x, y + 1);
             default:
                 return this;
         }
     }
-
     @Override
     public boolean equals(Object other){
         if (this == other){

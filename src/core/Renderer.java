@@ -17,9 +17,15 @@ public class Renderer {
 
     public void drawWorld(World w) {
         Tile[][] t = w.getTiles();
+
         for (int r = 0; r < t.length; r++) {
             for (int c = 0; c < t[r].length; c++) {
-                System.out.print(t[r][c].getSymbol() + " ");
+                if(w.getPartyPosition().getX() == r && w.getPartyPosition().getY() == c){
+                    System.out.print("P ");
+                }
+                else{
+                    System.out.print(t[r][c].getSymbol() + " ");
+                }
             }
             System.out.println();
         }
