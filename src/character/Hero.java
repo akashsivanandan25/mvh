@@ -184,4 +184,23 @@ public abstract class Hero extends Character{
         this.mp += utils.MathUtil.percentage(this.mp, amount);
     }
 
+    public Weapon getEquippedWeapon(){
+        return this.equippedWeapon;
+    }
+
+    public Armour getEquippedArmour(){
+        return this.equippedArmour;
+    }
+
+    public int getStrength(){
+        return this.strength;
+    }
+
+    public void reduceMP(int amount){
+        this.mp -= amount;
+    }
+
+    public int getDex(){
+        return this.dex;
+    }
 }
