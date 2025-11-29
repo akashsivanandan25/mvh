@@ -36,6 +36,16 @@ public class Renderer {
         for (Hero h : party) showHeroStats(h);
     }
 
+    public void showPartyList(List<Hero> party) {
+        int count = 0;
+        for (Hero h : party) {
+            System.out.print(count +". ");
+            showHeroStats(h);
+            count ++;
+        }
+    }
+
+
     public void showMonsterStats(List<Monster> list) {
         for (Monster m : list) {
             System.out.println(m.getName() +
@@ -44,7 +54,7 @@ public class Renderer {
     }
 
     public void showInventory(Inventory inv) {
-        List<Item> items = inv.getInventory();
+        List<Item> items = inv.getInventoryItems();
         for (int i = 0; i < items.size(); i++) {
             Item it = items.get(i);
             System.out.println((i + 1) + ") " + it.getName() +
@@ -63,9 +73,25 @@ public class Renderer {
     }
 
     public void showBattleScreen(List<Hero> heroes, List<Monster> monsters) {
-        System.out.println("\n=== HEROES ===");
-        showParty(heroes);
-        System.out.println("\n=== MONSTERS ===");
-        showMonsterStats(monsters);
+
+    }
+
+    public void showItemList(List<Item> items, String message) {
+        System.out.println(message);
+
+        System.out.println("********************");
+        int count = 1;
+        for (Item item : items) {
+            System.out.println("*    " + count + ". Item: " + item.getName());
+            System.out.println("*     Price: " + item.getBuyingPrice());
+            System.out.println("*     Level: " + item.getLevelRequired());
+            count ++;
+        }
+        System.out.println("********************");
+    }
+
+    public void clear() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
