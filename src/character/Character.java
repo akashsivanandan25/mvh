@@ -49,4 +49,8 @@ public abstract class Character {
     public int getMaxHP(){
         return this.maxHP;
     }
+
+    public void setHealth(int health){
+        this.health = health;
+    }
 }
