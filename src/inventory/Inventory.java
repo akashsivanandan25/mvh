@@ -71,7 +71,7 @@ public class Inventory {
         return items.isEmpty();
     }
 
-    public List<Item> getInventory(){
+    public List<Item> getInventoryItems(){
         return this.items;
     }
 }
