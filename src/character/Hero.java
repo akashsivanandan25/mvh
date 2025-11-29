@@ -25,7 +25,7 @@ public abstract class Hero extends Character{
         this.mp  = maxMP;
         this.dex = dex;
         this.agility = agility;
-        this.gold = 0;
+        this.gold = 1000;
         this.inventory = new Inventory();
         this.equippedWeapon = null;
         this.equippedArmour = null;
