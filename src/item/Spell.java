@@ -16,6 +16,14 @@ public class Spell extends Item {
         return spellType;
     }
 
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
 
     // TODO: make a spellcast function: needs to be passed a source and a target
 }
