@@ -36,4 +36,8 @@ public class AttackAction implements BattleAction {
     public String getDescription() {
         return attacker.getName() + " attacks " + target.getName() + " for " + this.damage;
     }
+
+    public Hero getAttacker() {
+        return this.attacker;
+    }
 }
