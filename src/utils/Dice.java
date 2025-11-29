@@ -31,7 +31,7 @@ public class Dice {
      * @param probability Probability of success
      * @return Boolean value representing success
      */
-    public boolean takeChance(float probability){
+    public static boolean takeChance(float probability){
         if (probability >= 1f){
             return true;
         } else if (probability < 0f){
@@ -44,7 +44,7 @@ public class Dice {
      * Generate a pseudo-random number
      * @return Pseudo-random integer
      */
-    public int randomNumber(){
+    public static int randomNumber(){
         return rand.nextInt();
     }
 }
