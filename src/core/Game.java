@@ -1,5 +1,6 @@
 package core;
 
+import party.Party;
 import state.*;
 import world.World;
 import character.Hero;
@@ -11,9 +12,10 @@ public class Game {
     private final GameContext context;
 
     public Game(World world, List<Hero> party) {
+        Party gameParty = new Party(party);
         this.context = new GameContext(
                 world,
-                party,
+                gameParty,
                 new Renderer(),
                 new InputHandler()
         );
