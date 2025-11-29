@@ -57,4 +57,8 @@ public abstract class Monster extends Character {
     }
 
     public abstract Monster copy();
+
+    public void setHealth(int amount){
+        this.health = amount;
+    }
 }
