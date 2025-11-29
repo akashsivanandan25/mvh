@@ -20,7 +20,8 @@ public class Position {
     }
 
     public static boolean isValidPos(Position newPosition){
-        return  newPosition.getX() < Gameconstants.WORLD_WIDTH && newPosition.getY() < Gameconstants.WORLD_HEIGHT;
+        return  newPosition.getX() < Gameconstants.WORLD_WIDTH && newPosition.getY() < Gameconstants.WORLD_HEIGHT &&
+                newPosition.getX() >= 0 && newPosition.getY() >= 0;
     }
 
     public Position move(Direction direction) {
