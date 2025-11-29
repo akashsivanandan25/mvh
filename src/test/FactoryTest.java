@@ -43,7 +43,7 @@ public class FactoryTest {
         System.out.println("\n=== POTIONS ===");
         List<Potion> potions = loader.loadPotions();
         for (Potion p : potions) {
-            System.out.println(p.getName() + "  ->  " + p.getAffectedStat());
+            System.out.println(p.getName() + "  ->  " + p.getAffectedStats());
         }
 
         /* ================= SPELLS ================= */
