@@ -10,23 +10,27 @@ import java.util.*;
 public class ConfigLoader {
 
     private List<String> readFile(String filename) {
+        String path = "src/resources/" + filename;
+        File file = new File(path);
+        System.out.println("Looking for: " + file.getAbsolutePath());
+
         List<String> lines = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader("src/Warriors.txt"))){
-//        try (BufferedReader br = new BufferedReader(
-//                new InputStreamReader(getClass().getResourceAsStream("/" + filename))
-//        )) {
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty() && !line.startsWith("#")) {
+                if (!line.trim().isEmpty() && !line.startsWith("#") && !line.toLowerCase().contains("name")) {
                     lines.add(line.trim());
                 }
             }
-        } catch (IOException | NullPointerException e) {
-            System.err.println("Error loading file: " + filename);
+        } catch(Exception e){
+            System.err.println("Failed to read file: " + path);
         }
+
+        System.out.println("Loaded lines → " + lines.size());
+        System.out.println(lines);
         return lines;
     }
-
     /* ================= HEROES ================= */
 
     public List<Hero> loadHeroes() {
