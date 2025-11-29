@@ -55,4 +55,6 @@ public abstract class Monster extends Character {
     public void setDefence(int defence) {
         this.defence = defence;
     }
+
+    public abstract Monster copy();
 }

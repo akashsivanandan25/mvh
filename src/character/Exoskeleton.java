@@ -11,6 +11,11 @@ public class Exoskeleton extends Monster{
     }
 
     @Override
+    public Monster copy() {
+        return new Exoskeleton(this.getName(), this.getLevel(), this.getMaxHP(), this.getBaseDamage(), this.getDefence());
+    }
+
+    @Override
     public float dodgeChance() {
         return getDodgeChance();
     }

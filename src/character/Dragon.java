@@ -13,6 +13,11 @@ public class Dragon extends Monster {
     }
 
     @Override
+    public Monster copy() {
+        return new Dragon(this.getName(), this.getLevel(), this.getMaxHP(), this.getBaseDamage(), this.getDefence());
+    }
+
+    @Override
     public float dodgeChance() {
         return getDodgeChance();
     }
