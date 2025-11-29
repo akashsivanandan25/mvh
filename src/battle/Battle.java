@@ -7,33 +7,36 @@ import party.Party;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Battle {
-    Party party;
-    List<Monster> monsters;
-    private final java.util.List<String> log = new java.util.ArrayList<>();
 
-    public void log(String msg) {
-        log.add(msg);
-    }
-
-    public java.util.List<String> getLog() {
-        return log;
-    }
-
+    private final Party party;
+    private final List<Monster> monsters;
+    private final List<String> log = new ArrayList<>();
+    private final Random rng = new Random();
 
     public Battle(Party party, MonsterFactory factory) {
         this.party = party;
         this.monsters = pick(factory);
     }
 
+    public void log(String msg) {
+        log.add(msg);
+    }
+
+    public List<String> getLog() {
+        return log;
+    }
+
+    public List<Monster> getMonsters() {
+        return this.monsters;
+    }
+
     private List<Monster> pick(MonsterFactory factory) {
         int count = party.getHeroes().size();
         List<Monster> list = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            list.add(factory.randomMonster());
-        }
+        for (int i = 0; i < count; i++) list.add(factory.randomMonster());
         return list;
     }
 
@@ -42,35 +45,15 @@ public class Battle {
      * @return true / false depending on whether battle is complete
      */
     public boolean isComplete() {
-        boolean monstersAlive = false;
-        for (Monster m : monsters) {
-            if (m.getHealth() > 0) {
-                monstersAlive = true;
-                break;
-            }
-        }
-
-        boolean heroesAlive = false;
-        for (Hero h : party.getHeroes()) {
-            if (h.isFainted()) {
-                heroesAlive = true;
-                break;
-            }
-        }
-
-        return (!monstersAlive) || (!heroesAlive);
+        boolean monsterAlive = false;
+        for (Monster m : monsters) if (m.getHealth() > 0) monsterAlive = true;
+        boolean heroAlive = false;
+        for (Hero h : party.getHeroes()) if (!h.isFainted()) heroAlive = true;
+        return !monsterAlive || !heroAlive;
     }
 
-    /**
-     * Called when battle is complete to check if heroes won
-     * @return true / false depending on whether heroes won
-     */
-    public boolean heroesWon(){
-        for (Hero h : party.getHeroes()) {
-            if (!h.isFainted()) {
-                return true;
-            }
-        }
+    public boolean heroesWon() {
+        for (Hero h : party.getHeroes()) if (!h.isFainted()) return true;
         return false;
     }
 
@@ -84,13 +67,73 @@ public class Battle {
                 h.recoverMP(10);
             }
         }
+        log("End of round regen applied.");
     }
 
-    public void processHeroTurn(){
 
+    /**
+     * Called once per round, pass list of actions (one for every alive hero)
+     */
+    public void processHeroTurn(List<BattleAction> actions) {
+        for (BattleAction action : actions) {
+
+            if (isComplete()) return;
+
+            action.execute(this);
+
+            for (Monster m : monsters) {
+                if (m.getHealth() <= 0) log(m.getName() + " has been defeated.");
+            }
+        }
     }
 
-    public void processMonsterTurn(){
 
+    public void processMonsterTurn() {
+
+        for (Monster m : monsters) {
+            if (m.getHealth() <= 0) continue;
+            if (isComplete()) return;
+
+            Hero target = pickRandomHero();
+            if (target == null) return;
+
+            int dmg = m.getBaseDamage();
+            target.takeDamage(target.getHealth() - dmg);
+
+            log(m.getName() + " attacks " + target.getName() + " for " + dmg);
+
+            if (target.isFainted()) log(target.getName() + " has fallen.");
+        }
+    }
+
+    private Hero pickRandomHero() {
+        List<Hero> list = new ArrayList<>();
+        for (Hero h : party.getHeroes()) {
+            if (!h.isFainted()){
+                list.add(h);
+            };
+        }
+        if (list.isEmpty()){
+            return null;
+        } else {
+            return list.get(utils.Dice.roll(list.size()));
+        }
+    }
+
+    public void executeRound(List<BattleAction> heroActions) {
+        processHeroTurn(heroActions);
+        if (isComplete()) return;
+
+        processMonsterTurn();
+        if (isComplete()) return;
+
+        endOfRoundRegen();
+    }
+
+    public Monster getFirstAliveMonster() {
+        for (Monster m : monsters) {
+            if (m.getHealth() > 0){ return m;}
+        }
+        return null;
     }
 }
