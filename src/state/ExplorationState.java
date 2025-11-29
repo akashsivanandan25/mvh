@@ -17,10 +17,10 @@ public class ExplorationState implements  GameState {
                 move(context, Direction.DOWN);
                 break;
             case 'd':
-                move(context, Direction.LEFT);
+                move(context, Direction.RIGHT);
                 break;
             case 'a':
-                move(context, Direction.RIGHT);
+                move(context, Direction.LEFT);
                 break;
             case 'i':
                 context.ui().showParty(context.party());
