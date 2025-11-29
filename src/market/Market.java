@@ -13,7 +13,7 @@ public class Market {
     }
 
     public List<Item> getItemsforSale(){
-        return this.inventory.getInventory();
+        return this.inventory.getInventoryItems();
     }
 
     public boolean buy(Hero hero, Item item){
