@@ -176,4 +176,8 @@ public abstract class Hero extends Character{
         return this.mp;
     }
 
+    public Inventory getInventory(){
+        return this.inventory;
+    }
+
 }
