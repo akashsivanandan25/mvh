@@ -16,16 +16,16 @@ public abstract class Character {
     }
 
 
-    public void takeDamage(int damage)
-    {
-        this.health -= damage;
-        if (health <= 0){
+    public void takeDamage(int damage) {
+        this.health = Math.max(0, this.health - damage);
+        if (this.health == 0) {
             this.isFainted = true;
         }
     }
 
-    public void heal(int amount){
-        this.health += utils.MathUtil.percentage(this.health, amount);
+    public void heal(int percentOfMax) {
+        int restore = utils.MathUtil.percentage(this.maxHP, percentOfMax);
+        this.health = Math.min(maxHP, this.health + restore);
     }
 
     public boolean isFainted(){
