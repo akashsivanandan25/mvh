@@ -66,31 +66,47 @@ public class BattleState implements GameState {
             pendingActions.clear();
 
             if (battle.isComplete()) {
-                return battle.heroesWon() ? new ExplorationState() : new QuitState();
+                if (battle.heroesWon()) {
+                    int gold = battle.calcGoldReward();
+                    int xp   = battle.calcXPReward();
+                    context.party().addGold(gold);
+                    context.party().addXP(xp);
+                    context.ui().msg("Victory! +" + gold + " Gold, +" + xp + " XP");
+                    return new ExplorationState();
+                } else {
+                    context.ui().msg("You lose!");
+                    return new QuitState();
+                }
             }
-
-            return this;
         }
 
         switch (input) {
             case "a":
-                Monster target = battle.getFirstAliveMonster();
+                Monster target = chooseMonster(context);
+                if (target == null || current == null){ return this; }
                 pendingActions.add(new AttackAction(current, target));
                 break;
 
             case "s":
+                assert current != null;
+                Monster target2 = chooseMonster(context);
                 Spell spell = current.chooseSpell(context);
-                Monster m = battle.getFirstAliveMonster();
-                pendingActions.add(new SpellAction(current, m, spell));
+                if (spell == null || target2 == null){ return this; }
+                pendingActions.add(new SpellAction(current, target2, spell));
                 break;
 
             case "p":
+                assert current != null;
                 Potion p = current.choosePotion(context);
+                if (p == null){ return this; }
                 pendingActions.add(new UsePotionAction(current, p));
                 break;
 
             case "e":
-                pendingActions.add(new EquipAction(current, current.chooseEquipment(context)));
+                assert current != null;
+                Equipment equipment = current.chooseEquipment(context);
+                if (equipment == null){ return this; }
+                pendingActions.add(new EquipAction(current, equipment));
                 break;
 
             default:
