@@ -6,7 +6,7 @@ public class Spirit extends Monster {
     }
 
     @Override
-    protected void applyFavouredStatMultiplier() {
+    public void applyFavouredStatMultiplier() {
         this.setDodgeChance((float) (this.getDodgeChance() * 1.1));
     }
 

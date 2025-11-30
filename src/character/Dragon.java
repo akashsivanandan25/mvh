@@ -6,7 +6,7 @@ public class Dragon extends Monster {
     }
 
     @Override
-    protected void applyFavouredStatMultiplier() {
+    public void applyFavouredStatMultiplier() {
         int damage = this.getBaseDamage();
         damage += (int) (damage * 0.3f);
         this.setBaseDamage(damage);

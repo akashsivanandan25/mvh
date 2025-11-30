@@ -12,7 +12,6 @@ public abstract class Monster extends Character {
         this.baseDamage = baseDamage;
         this.defence = defence;
         this.dodgeChance = 0.05f;
-        applyFavouredStatMultiplier();
     }
 
     public void attack(Hero hero){
@@ -31,7 +30,7 @@ public abstract class Monster extends Character {
     }
 
 
-    protected abstract void applyFavouredStatMultiplier();
+    public abstract void applyFavouredStatMultiplier();
 
 
     public float getDodgeChance() {

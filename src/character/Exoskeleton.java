@@ -6,7 +6,7 @@ public class Exoskeleton extends Monster{
     }
 
     @Override
-    protected void applyFavouredStatMultiplier() {
+    public void applyFavouredStatMultiplier() {
         super.setDefence((int) (super.getDefence() * 1.10f));
     }
 

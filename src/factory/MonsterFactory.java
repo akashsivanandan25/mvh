@@ -4,6 +4,7 @@ import character.Dragon;
 import character.Exoskeleton;
 import character.Spirit;
 import character.Monster;
+import utils.Dice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,7 @@ public class MonsterFactory {
     }
 
     public static Monster randomMonster() {
-        if(monsterPool.isEmpty())
-            throw new IllegalStateException("Monster pool is empty – ConfigLoader not initialized.");
-        return monsterPool.get(utils.Dice.rollIndex(monsterPool.size())).copy();
-    }
-}
+        Monster m = monsterPool.get(Dice.rollIndex(monsterPool.size())).copy();
+        m.applyFavouredStatMultiplier();
+        return m;
+    }}
