@@ -7,14 +7,12 @@ import party.Party;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Battle {
 
     private final Party party;
     private final List<Monster> monsters;
     private final List<String> log = new ArrayList<>();
-    private final Random rng = new Random();
 
     public Battle(Party party, MonsterFactory factory) {
         this.party = party;
@@ -35,10 +33,40 @@ public class Battle {
 
     private List<Monster> pick(MonsterFactory factory) {
         int count = party.getHeroes().size();
+        int avgHeroLevel = avgLevel(party.getHeroes());
+
         List<Monster> list = new ArrayList<>();
-        for (int i = 0; i < count; i++) list.add(factory.randomMonster());
+        for (int i = 0; i < count; i++) {
+            Monster m = factory.randomMonster();
+            scaleMonsterToLevel(m, avgHeroLevel);
+            list.add(m);
+        }
         return list;
     }
+
+    private void scaleMonsterToLevel(Monster m, int heroLevel) {
+
+        int monsterLevel = m.getLevel();
+        double scale = 1 + 0.15 * (heroLevel - monsterLevel);
+
+        if (scale < 0.5) scale = 0.5;
+        if (scale > 2.5) scale = 2.5;
+
+        m.setLevel(heroLevel);
+        m.setBaseDamage((int)(m.getBaseDamage() * scale));
+        m.setDefence((int)(m.getDefence() * scale));
+        m.setHealth((int)(m.getHealth() * scale));
+    }
+    private int avgLevel(List<Hero> heroes) {
+        int level = 0;
+        int count = 0;
+        for (Hero h : heroes) {
+            level += h.getLevel();
+            count ++;
+        }
+        return (int) level/count;
+    }
+
 
     /**
      * Check if battle is complete. Battle is complete if all monsters are dead, or if all heroes have fainted
@@ -46,9 +74,17 @@ public class Battle {
      */
     public boolean isComplete() {
         boolean monsterAlive = false;
-        for (Monster m : monsters) if (m.getHealth() > 0) monsterAlive = true;
+        for (Monster m : monsters)
+            if (m.getHealth() > 0) {
+                monsterAlive = true;
+                break;
+            }
         boolean heroAlive = false;
-        for (Hero h : party.getHeroes()) if (!h.isFainted()) heroAlive = true;
+        for (Hero h : party.getHeroes())
+            if (!h.isFainted()) {
+                heroAlive = true;
+                break;
+            }
         return !monsterAlive || !heroAlive;
     }
 
@@ -111,12 +147,12 @@ public class Battle {
         for (Hero h : party.getHeroes()) {
             if (!h.isFainted()){
                 list.add(h);
-            };
+            }
         }
         if (list.isEmpty()){
             return null;
         } else {
-            return list.get(utils.Dice.roll(list.size()));
+            return list.get(utils.Dice.rollIndex(list.size()));
         }
     }
 
@@ -130,10 +166,26 @@ public class Battle {
         endOfRoundRegen();
     }
 
-    public Monster getFirstAliveMonster() {
+    public int calcGoldReward() {
+        int total = 0;
         for (Monster m : monsters) {
-            if (m.getHealth() > 0){ return m;}
+            int lvl = m.getLevel();
+            total += lvl * 10;
+            total += (int)(m.getDefence() * 0.5);
+            total += (int)(m.getBaseDamage() * 0.5);
         }
-        return null;
+        return Math.max(total, 5);
     }
+
+    public int calcXPReward() {
+        int total = 0;
+        for (Monster m : monsters) {
+            int lvl = m.getLevel();
+            total += lvl * 15;
+            total += m.getBaseDamage();
+            total += m.getDefence() / 2;
+        }
+        return Math.max(total, 10);
+    }
+
 }
