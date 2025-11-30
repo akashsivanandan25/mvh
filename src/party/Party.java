@@ -51,4 +51,16 @@ public class Party {
         }
         return maxLevel;
     }
+
+    public void addGold(int gold) {
+        for  (Hero hero : heroes){
+            hero.setGold(hero.getGold() + gold);
+        }
+    }
+
+    public void addXP(int xp) {
+        for (Hero hero : heroes){
+            hero.setXP(hero.getXP() + xp);
+        }
+    }
 }
