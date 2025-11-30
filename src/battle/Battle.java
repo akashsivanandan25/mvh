@@ -38,6 +38,7 @@ public class Battle {
         List<Monster> list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Monster m = factory.randomMonster();
+            m.applyFavouredStatMultiplier();
             scaleMonsterToLevel(m, avgHeroLevel);
             list.add(m);
         }
@@ -47,10 +48,10 @@ public class Battle {
     private void scaleMonsterToLevel(Monster m, int heroLevel) {
 
         int monsterLevel = m.getLevel();
-        double scale = 1 + 0.15 * (heroLevel - monsterLevel);
 
-        if (scale < 0.5) scale = 0.5;
-        if (scale > 2.5) scale = 2.5;
+        double scale = (double) heroLevel / monsterLevel;
+        if(scale < 0.4) scale = 0.4;
+        if(scale > 1.8) scale = 1.8;
 
         m.setLevel(heroLevel);
         m.setBaseDamage((int)(m.getBaseDamage() * scale));
@@ -134,7 +135,7 @@ public class Battle {
             if (target == null) return;
 
             int dmg = m.getBaseDamage();
-            target.takeDamage(target.getHealth() - dmg);
+            target.takeDamage(dmg);
 
             log(m.getName() + " attacks " + target.getName() + " for " + dmg);
 
@@ -157,13 +158,17 @@ public class Battle {
     }
 
     public void executeRound(List<BattleAction> heroActions) {
+        log("⏳ Round start");
         processHeroTurn(heroActions);
         if (isComplete()) return;
 
+        log("👹 Monster phase");
         processMonsterTurn();
         if (isComplete()) return;
 
+        log("💚 Regen phase");
         endOfRoundRegen();
+        log("⏳ Round end");
     }
 
     public int calcGoldReward() {
