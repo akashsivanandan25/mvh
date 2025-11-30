@@ -1,0 +1,115 @@
+
+📜 Monsters vs Heroes – Quick Player Manual
+
+Monsters vs Heroes is a turn-based fantasy RPG about exploration, party composition, and tactical combat. Your survival depends on smart action choices and efficient resource use.
+
+⸻
+
+🎮 Start
+	1.	Launch game → view list of heroes.
+	2.	Select 3 heroes to form your party.
+	3.	The world map loads and exploration begins.
+
+Each hero has unique stats, strengths, and affinities. Party balance matters.
+
+⸻
+
+🌍 Exploration
+
+Movement keys:
+W/A/S/D → up / left / down / right
+
+Tile Types:
+
+Tile	Meaning
+. Grass	Safe
+X Rocks	Impassable
+M Monster	Triggers battle
+P Party (you)	Current position
+
+Explore, survive, and strengthen your team as you progress.
+
+⸻
+
+⚔️ Battle Flow
+
+Stepping on a monster tile starts combat.
+Turn structure:
+Heroes act first → Monsters respond → End-of-round regen applies.
+
+Action Keys:
+
+Key	Action	Effect
+A	Attack	Physical damage (STR + weapon)
+S	Spell	MP-based magic (DEX scaling)
+P	Potion	Heal or boost stats
+E	Equip	Change gear during combat
+Q	Quit	Exit battle/game
+
+After all heroes choose an action, the round executes.
+
+⸻
+
+👥 Stats
+
+Stat	Meaning
+HP	Health (0 = fainted)
+MP	Required for spells
+STR	Physical damage
+DEX	Spell effectiveness/accuracy
+AGI	Dodge + turn advantage
+DEF (monsters)	Reduces physical damage taken
+
+If all heroes faint → defeat. If all monsters fall → victory.
+
+⸻
+
+🐉 Monsters
+
+Monsters vary by:
+	•	HP
+	•	Damage
+	•	Defense
+	•	Dodge chance
+
+Strong foes require spells, equipment upgrades, and selective targeting.
+
+If physical attacks do minimal damage, change strategy.
+
+⸻
+
+🧪 Items, Gear & Magic
+	•	Potions: Heal or enhance stats.
+	•	Weapons: Increase physical output.
+	•	Armor: Reduce incoming damage.
+	•	Spells may also apply effects:
+
+Type	Effect
+🔥 Fire	Lowers enemy defense
+❄ Ice	Lowers enemy damage
+⚡ Lightning	Reduces enemy dodge
+
+Correct spell use can turn fights.
+
+⸻
+
+🏆 Rewards
+
+Winning battle grants:
+	•	Gold
+	•	XP
+
+XP improves hero attributes over time.
+
+If the party dies, the game ends.
+
+⸻
+
+📌 Win Conditions
+	1.	Form a capable party.
+	2.	Explore strategically.
+	3.	Manage actions, gear, and spells.
+	4.	Win battles → gain XP and gold.
+	5.	Grow strong enough to survive the world.
+
+Tactics matter more than raw strength.

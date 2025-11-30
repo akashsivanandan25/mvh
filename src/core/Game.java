@@ -8,6 +8,10 @@ import party.Party;
 import state.*;
 import world.World;
 import character.Hero;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Game {
@@ -17,7 +21,7 @@ public class Game {
 
     public static void main(String[] args) {
         System.out.println("=== GAME START ===");
-
+        showInstructions();
         ConfigLoader loader = new ConfigLoader();
         List<Hero> availableHeroes = loader.loadHeroes();
         List<Monster> spawnPool     = loader.loadMonsters();
@@ -35,19 +39,39 @@ public class Game {
         GameState state = new ExplorationState();
         state.onEnter(context);
 
-        while(!(state instanceof QuitState)) {
+        while (!(state instanceof QuitState)) {
             state.render(context);
+
+            if (state instanceof BattleState) {
+                GameState next = state.handleInput(context, "");
+
+                if (next != state) {
+                    state = next;
+                    state.onEnter(context);
+                    continue;
+                }
+            }
+
             context.ui().msg(">");
             String input = context.in().nextString();
-            GameState next = state.handleInput(context,input);
 
-            if(next != state){
+            GameState next = state.handleInput(context, input);
+
+            if (next != state) {
                 state = next;
                 state.onEnter(context);
             }
         }
-
         System.out.println("=== GAME END ===");
+    }
+
+    private static void showInstructions() {
+        try {
+            Files.lines(Paths.get("src/resources/GameInstructions.txt"))
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            System.out.println("Instruction file missing.");
+        }
     }
 
     public Game(World world, List<Hero> party) {
