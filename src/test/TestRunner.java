@@ -1,6 +1,7 @@
 package test;
 
 import core.*;
+import party.Party;
 import state.*;
 import world.*;
 import character.*;
@@ -31,9 +32,13 @@ public class TestRunner {
                 world.getPartyPosition().getX() + "," + world.getPartyPosition().getY());
 
         /* 3️⃣ CONTEXT + GAME LOOP */
+
+        List<Hero> heroList = heroes.subList(0, Math.min(3, heroes.size()));
+        Party party = new Party(heroList);
+
         GameContext context = new GameContext(
                 world,
-                heroes.subList(0, Math.min(3, heroes.size())), // choose first 1–3 heroes
+                party,
                 new Renderer(),
                 new InputHandler()
         );
