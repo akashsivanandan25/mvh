@@ -106,7 +106,23 @@ public class BattleState implements GameState {
 
     private boolean heroAlreadyQueued(Hero h) {
         for (BattleAction a : pendingActions)
-            if (a instanceof AttackAction && ((AttackAction) a).getAttacker() == h) return true;
+            if (a.getAttacker().equals(h)){return true;}
         return false;
+    }
+
+    public Monster chooseMonster(GameContext context) {
+        context.ui().msg("Choose a monster:");
+        int count = 0;
+        for (Monster m : battle.getMonsters()) {
+            if (m.getHealth() > 0) {
+                context.ui().msg(count + ":  " + m.getName() + " HP = " + m.getHealth());
+                count++;
+            }
+        }
+        int userInput = context.in().nextInt();
+        if (userInput >= battle.getMonsters().size() || userInput < 0) {
+            return null;
+        }
+        return battle.getMonsters().get(userInput);
     }
 }
