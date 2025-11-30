@@ -11,19 +11,15 @@ public class ExplorationState implements  GameState {
 
         switch (inputChar) {
             case 'w':
-                move(context, Direction.UP);
-                break;
+                return move(context, Direction.UP);
             case 's':
-                move(context, Direction.DOWN);
-                break;
+                return move(context, Direction.DOWN);
             case 'd':
-                move(context, Direction.RIGHT);
-                break;
+                return move(context, Direction.RIGHT);
             case 'a':
-                move(context, Direction.LEFT);
-                break;
+                return move(context, Direction.LEFT);
             case 'i':
-                context.ui().showParty(context.party());
+                context.ui().showParty(context.party().getHeroes());
                 break;
             case 'm':
                 return openMarket(context);
