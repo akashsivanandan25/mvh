@@ -12,51 +12,50 @@ public class MonsterFactory {
     private final List<Dragon> dragons = new ArrayList<>();
     private final List<Exoskeleton> exoskeletons = new ArrayList<>();
     private final List<Spirit> spirits = new ArrayList<>();
+    private static List<Monster> monsterPool = new ArrayList<>();
+
+
+    public static void setPool(List<Monster> spawnPool){
+        monsterPool = spawnPool;
+    }
+
 
     public Monster createDragon(String line) {
         String[] d = line.trim().split("\\s+");
-        Dragon dragon =  new Dragon(
+        return new Dragon(
                 d[0],
                 1,
                 Integer.parseInt(d[1]),
                 Integer.parseInt(d[2]),
                 Integer.parseInt(d[3])
         );
-        dragons.add(dragon);
-        return dragon;
     }
 
     public Monster createExoskeleton(String line) {
         String[] d = line.trim().split("\\s+");
-        Exoskeleton exo =  new Exoskeleton(
+        return new Exoskeleton(
                 d[0],
                 1,
                 Integer.parseInt(d[1]),
                 Integer.parseInt(d[2]),
                 Integer.parseInt(d[3])
         );
-        exoskeletons.add(exo);
-        return exo;
     }
 
     public Monster createSpirit(String line) {
         String[] d = line.trim().split("\\s+");
-        Spirit spirit = new Spirit(
+        return new Spirit(
                 d[0],
                 1,
                 Integer.parseInt(d[1]),
                 Integer.parseInt(d[2]),
                 Integer.parseInt(d[3])
         );
-        spirits.add(spirit);
-        return spirit;
     }
 
-    public Monster randomMonster() {
-        List<Monster> all = new ArrayList<>();
-        all.addAll(dragons);
-        all.addAll(exoskeletons);
-        all.addAll(spirits);
-        return all.get(utils.Dice.roll(all.size())).copy();
+    public static Monster randomMonster() {
+        if(monsterPool.isEmpty())
+            throw new IllegalStateException("Monster pool is empty – ConfigLoader not initialized.");
+        return monsterPool.get(utils.Dice.rollIndex(monsterPool.size())).copy();
     }
 }
