@@ -2,8 +2,6 @@ package core;
 
 import party.Party;
 import world.World;
-import character.Hero;
-import java.util.List;
 
 public class GameContext {
     private final World world;
