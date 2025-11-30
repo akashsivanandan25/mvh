@@ -5,6 +5,7 @@ import character.Hero;
 import character.Monster;
 import core.GameContext;
 import factory.MonsterFactory;
+import item.Equipment;
 import item.Potion;
 import item.Spell;
 
@@ -35,7 +36,7 @@ public class BattleState implements GameState {
                     + " AGI:" + h.getAgility());
         }
 
-        System.out.println("\n----- MONSTERS -----");
+        context.ui().msg("\n----- MONSTERS -----");
         for (Monster m : battle.getMonsters()) {
             context.ui().msg(m.getName() + " HP:" + m.getHealth()
                     + " DMG:" + m.getBaseDamage()
@@ -43,8 +44,12 @@ public class BattleState implements GameState {
                     + " Dodge:" + m.getDodgeChance());
         }
 
-        System.out.println("\nChoose an action:");
-        System.out.println("[A]ttack   [S]pell   [P]otion   [E]quip   [Q]uit");
+        context.ui().msg("\nChoose an action:");
+        context.ui().msg("[A]ttack   [S]pell   [P]otion   [E]quip   [Q]uit");
+        for (String entry : battle.getLog())
+            context.ui().msg(entry);
+        battle.getLog().clear();
+
     }
 
     @Override
@@ -89,7 +94,7 @@ public class BattleState implements GameState {
                 break;
 
             default:
-                System.out.println("Invalid input.");
+                context.ui().msg("Invalid input.");
                 return this;
         }
         return this;
