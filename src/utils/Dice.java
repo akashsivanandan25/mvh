@@ -18,6 +18,11 @@ public class Dice {
         return rand.nextInt(sides) + 1;
     }
 
+    public static int rollIndex(int size) {
+        if (size <= 0) throw new IllegalArgumentException("No elements to choose from");
+        return rand.nextInt(size);
+    }
+
     /**
      * Roll a 6 sided die
      * @return Integer number between 1 and 6
