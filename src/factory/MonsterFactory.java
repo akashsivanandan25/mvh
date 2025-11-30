@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MonsterFactory {
-    private final List<Dragon> dragons = new ArrayList<>();
-    private final List<Exoskeleton> exoskeletons = new ArrayList<>();
-    private final List<Spirit> spirits = new ArrayList<>();
     private static List<Monster> monsterPool = new ArrayList<>();
 
 

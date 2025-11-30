@@ -86,17 +86,4 @@ public class Game {
         state.onEnter(context);
     }
 
-    public void run() {
-        while (!(state instanceof QuitState)) {
-            state.render(context);
-            context.ui().msg(">");
-            String input = context.in().nextString();
-            GameState next = state.handleInput(context, input);
-
-            if (next != state) {
-                state = next;
-                state.onEnter(context);
-            }
-        }
-    }
 }

@@ -15,7 +15,6 @@ import java.util.List;
 public class BattleState implements GameState {
 
     private Battle battle;
-    private boolean awaitingActions = true;
     private final List<BattleAction> pendingActions = new ArrayList<>();
 
     @Override

@@ -14,11 +14,6 @@ public abstract class Monster extends Character {
         this.dodgeChance = 0.05f;
     }
 
-    public void attack(Hero hero){
-        // TODO: IMPLEMENT WHEN BATTLE IS FLESHED OUT
-
-    }
-
     public void applyDebuff(DebuffType debuffType, int amount){
         if (debuffType == DebuffType.DAMAGE){
             baseDamage -= Math.max(0, amount);
