@@ -21,18 +21,44 @@ public class AttackAction implements BattleAction {
 
     @Override
     public void execute(Battle battle) {
-        int roll = utils.Dice.roll(99);
-        int dodge = (int) target.getDodgeChance();
+        AttackResults result = performAttack();
 
-        if (roll <= dodge) {
-            this.damage = 0;
+        if (!result.isHitSuccessful()) {
             battle.log(target.getName() + " dodged the attack!");
             return;
         }
-        getFinalDamage();
-        target.setHealth(target.getHealth() - this.damage);
 
-    }    @Override
+        battle.log(attacker.getName() + " attacks " + target.getName()
+                + " for " + result.getDamageDealt());
+
+        if(result.isTargetDefeated())
+            battle.log(target.getName() + " has been defeated!");
+    }
+
+    private AttackResults performAttack() {
+
+        if(attacker == null || target == null)
+            return new AttackResults(false,0,false);
+
+        if(target.dodged())
+            return new AttackResults(false,0,false);
+
+        int str = attacker.getStrength();
+        int wep = (attacker.getEquippedWeapon() == null) ? 0 :
+                attacker.getEquippedWeapon().getbaseDamage();
+
+        int raw = str + wep;
+        int reduced = (int)(raw - (raw * (target.getDefence()/100.0)));
+        int finalDamage = Math.max(1,reduced);
+
+        target.takeDamage(finalDamage);
+        boolean dead = target.isFainted();
+
+        return new AttackResults(dead,finalDamage,true);
+    }
+
+
+    @Override
     public String getDescription() {
         return attacker.getName() + " attacks " + target.getName() + " for " + this.damage;
     }

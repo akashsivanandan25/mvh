@@ -1,5 +1,7 @@
 package character;
 
+import utils.Dice;
+
 public abstract class Monster extends Character {
     private int baseDamage;
     private int defence;
@@ -58,7 +60,13 @@ public abstract class Monster extends Character {
 
     public abstract Monster copy();
 
-    public void setHealth(int amount){
-        this.health = amount;
+    public boolean dodged() {
+        boolean result = Dice.takeChance(Math.max(0f, dodgeChance));
+        if(result) System.out.println(getName()+" dodged the attack!");
+        return result;
+    }
+
+    public void setLevel(int amount) {
+        this.level = amount;
     }
 }
