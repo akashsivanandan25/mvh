@@ -23,4 +23,9 @@ public class EquipAction implements BattleAction {
     public String getDescription() {
         return hero.getName() + " equips " + equipment.getName();
     }
+
+    @Override
+    public Hero getAttacker() {
+        return this.hero;
+    }
 }
