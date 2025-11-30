@@ -253,4 +253,14 @@ public abstract class Hero extends Character {
         }
         return null;
     }
+
+    public int getXP(){
+        return this.experience;
+    }
+
+    public void setXP(int xp){
+        this.experience = xp;
+    }
+
+    public abstract Hero copy();
 }

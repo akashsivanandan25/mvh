@@ -24,4 +24,17 @@ public class Paladin extends Hero {
     public List<StatType> getFavouredStats() {
         return Collections.unmodifiableList(favouredStats);
     }
+
+    @Override
+    public Hero copy() {
+        return new Paladin(
+                this.name,
+                this.level,
+                this.maxHP,
+                this.getMP(),
+                this.getStrength(),
+                this.getDex(),
+                this.getAgility()
+        );
+    }
 }

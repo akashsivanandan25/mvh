@@ -24,4 +24,17 @@ public class Warrior extends Hero{
     public List<StatType> getFavouredStats() {
         return Collections.unmodifiableList(favouredStats);
     }
+
+    @Override
+    public Hero copy() {
+        return new Warrior(
+                this.name,
+                this.level,
+                this.maxHP,
+                this.getMaxMP(),
+                this.getStrength(),
+                this.getDex(),
+                this.getAgility()
+        );
+    }
 }
