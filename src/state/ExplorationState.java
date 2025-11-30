@@ -85,15 +85,15 @@ public class ExplorationState implements  GameState {
         }
 
         context.ui().msg("Choose hero to shop for");
-        context.ui().showParty(context.party());
+        context.ui().showParty(context.party().getHeroes());
         int userInput = context.in().nextInt();
 
-        if (userInput < 0 || userInput > context.party().size() - 1){
+        if (userInput < 0 || userInput > context.party().getHeroes().size() - 1){
             context.ui().msg("Invalid input");
             return this;
         }
 
-        Hero h = context.party().get(userInput);
+        Hero h = context.party().getHeroes().get(userInput);
         return new MarketState(((MarketTile) tile).getMarket(), h);
     }
 }
