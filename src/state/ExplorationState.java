@@ -67,7 +67,7 @@ public class ExplorationState implements  GameState {
         }
 
         if (tileType == TileType.WORLD){
-              boolean isBattle = utils.Dice.takeChance(0.2f);
+            boolean isBattle = true;
               if  (isBattle){
                   // call battle state
                   return new BattleState();
