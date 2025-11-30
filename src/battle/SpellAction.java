@@ -20,30 +20,64 @@ public class SpellAction implements BattleAction {
     @Override
     public void execute(Battle battle) {
 
-        if (caster.getMP() < spell.getManaCost()) {
-            battle.log(caster.getName() + " failed to cast " + spell.getName() + " (not enough MP)");
+        SpellResult result = performCast();
+
+        if(!result.isHitSuccessful()){
+            battle.log(target.getName() + " dodged " + spell.getName() + "!");
             return;
         }
 
-        caster.reduceMP(spell.getManaCost());
+        battle.log(caster.getName() + " casts " + spell.getName() +
+                " on " + target.getName() + " for " + result.getDamageDealt());
 
-        int damage = spell.getBaseDamage() + caster.getDex();
-        target.setHealth(target.getHealth() - damage);
-
-        if (spell.getSpellType().equals(SpellType.ICE)) {
-            target.applyDebuff(DebuffType.DAMAGE, damage / 4);
-        } else if (spell.getSpellType().equals(SpellType.FIRE)) {
-            target.applyDebuff(DebuffType.DEFENCE, damage / 4);
-        } else if (spell.getSpellType().equals(SpellType.LIGHTNING)) {
-            target.applyDebuff(DebuffType.DODGE, damage / 4);
+        if(result.getDebuffApplied() != null){
+            battle.log(target.getName() + " suffers debuff: " + result.getDebuffApplied());
         }
 
-        battle.log(caster.getName() + " casts " + spell.getName() +
-                " on " + target.getName() + " for " + damage);
+        if(result.isTargetDefeated())
+            battle.log(target.getName() + " has been defeated!");
+    }
+
+    private SpellResult performCast() {
+
+        if(caster.getMP() < spell.getManaCost())
+            return new SpellResult(0,null,false,false);
+
+        caster.reduceMP(spell.getManaCost());
+
+        if(target.dodged())
+            return new SpellResult(0,null,false,false);
+
+        int raw = spell.getBaseDamage() + caster.getDex();
+        int finalDamage = Math.max(1, raw - target.getDefence());
+
+        target.takeDamage(finalDamage);
+
+        DebuffType debuff = null;
+        int amount = finalDamage/4;
+
+        switch(spell.getSpellType()){
+            case ICE:
+                debuff = DebuffType.DAMAGE; break;
+            case FIRE:
+                debuff = DebuffType.DEFENCE; break;
+            case LIGHTNING:
+                debuff = DebuffType.DODGE; break;
+        }
+
+        if(debuff != null)
+            target.applyDebuff(debuff, amount);
+
+        boolean dead = target.isFainted();
+
+        return new SpellResult(finalDamage,debuff,true,dead);
     }
 
     @Override
     public String getDescription() {
         return caster.getName() + " casts " + spell.getName();
     }
+
+    @Override
+    public Hero getAttacker() { return caster; }
 }
