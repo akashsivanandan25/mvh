@@ -12,8 +12,6 @@ public class ConfigLoader {
     private List<String> readFile(String filename) {
         String path = "src/resources/" + filename;
         File file = new File(path);
-        System.out.println("Looking for: " + file.getAbsolutePath());
-
         List<String> lines = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -27,8 +25,6 @@ public class ConfigLoader {
             System.err.println("Failed to read file: " + path);
         }
 
-        System.out.println("Loaded lines → " + lines.size());
-        System.out.println(lines);
         return lines;
     }
     /* ================= HEROES ================= */
