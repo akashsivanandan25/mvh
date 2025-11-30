@@ -31,4 +31,8 @@ public class Potion extends Item{
     public List<StatType> getAffectedStats() {
         return this.statsAffected;
     }
+
+    public String getEffectAmount() {
+        return this.effectAmount+"";
+    }
 }
